@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyStats : MonoBehaviour {
-    public HealthBarController healthBar;
+    private HealthBarController healthBar;
 
     public int health;
     public int maxHealth;

@@ -12,7 +12,6 @@ public class HealthBarController : MonoBehaviour {
     }
 
     public void onTakeDamage(int damage) {
-        Debug.Log("actualiza barra d vida enemigo");
         health = health - damage;
         healthBar.fillAmount = health / maxHealth;
     }

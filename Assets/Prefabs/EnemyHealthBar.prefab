@@ -167,4 +167,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 197956617086190074}
-  instance: {fileID: 4720310341998944651, guid: 917ca3f3f8e3f15478e715e75a409b99, type: 3}
+  health: 20
+  maxHealth: 20
