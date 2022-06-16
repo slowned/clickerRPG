@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4720310341998944654}
   - component: {fileID: 4720310341998944653}
   - component: {fileID: 7540703171034657185}
+  - component: {fileID: 8089841214968430495}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -140,7 +141,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c45f03bd322734cb3be0ab292dcd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 197956618299867136, guid: 68d6e0eeea400884d99129f36d767ff3, type: 3}
+  combatController: {fileID: 0}
   health: 0
   maxHealth: 0
   level: 1
+--- !u!114 &8089841214968430495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720310341998944651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffb3c913faa4cf671ad57ac90c3e50d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
+  autoAttackCurTime: 0
+  canAutoAttack: 0
+  specialAttackCurTime: 0
+  specialAttackCooldown: 0
+  canSpecialAttack: 0

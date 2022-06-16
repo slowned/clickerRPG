@@ -14,6 +14,11 @@ public class PlayerController : MonoBehaviour {
 
     public HealthBarController healthBar;
 
+    // AUTO-ATTACK
+    private float autoAttackCooldown = 3.0f;
+    public float autoAttackCurTime;
+    public bool canAutoAttack;
+
     void Start() {
         health = baseHealth * level;
         maxHealth = health; 
@@ -31,7 +36,6 @@ public class PlayerController : MonoBehaviour {
             if (healthBar) {
                 healthBar.onTakeDamage(20);
             }
-
         }
     } 
 
@@ -39,17 +43,26 @@ public class PlayerController : MonoBehaviour {
         healthBar.onTakeDamage(20);
     }
 
+    public bool CanAutoAttack() {
+      if(autoAttackCurTime >= autoAttackCooldown) {
+        autoAttackCurTime = 0;
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     void Update() {
-        if (Input.GetKeyDown(KeyCode.R)) {
-            TakeDamage();
-        }
-        if (enemy && Input.GetKeyDown(KeyCode.F)) {
-            int enemyHp = enemyStatsScript.GetDamage(damage);
-            // lo mate??
-            if (enemyHp < 1) {
-                enemy = null;
-                fighting = false;
-            }
+        // AUTO ATTACK
+        autoAttackCurTime += Time.deltaTime;
+
+        if (enemy != null && CanAutoAttack()) {
+          int enemyHp = enemyStatsScript.GetDamage(damage);
+          // lo mate??
+          if (enemyHp < 1) {
+              enemy = null;
+              fighting = false;
+          }
         }
     }
 }

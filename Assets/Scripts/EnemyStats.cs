@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour {
     private HealthBarController healthBar;
+    public CombatController combatController;
 
     public int health;
     public int maxHealth;
@@ -25,5 +26,11 @@ public class EnemyStats : MonoBehaviour {
         healthBar = GameObject.FindWithTag("EnemyHealthBar").GetComponent<HealthBarController>();
         healthBar.fullHp();
         // dmg = _dmg * lvl 
+    }
+
+    public void GenerateAggro(GameObject _enemy) {
+      Debug.Log("e loquieto vo wa a matar");
+      combatController = gameObject.GetComponent<CombatController>();
+      combatController.SetEnemy(_enemy);
     }
 }
