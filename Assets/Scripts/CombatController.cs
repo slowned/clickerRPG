@@ -5,6 +5,7 @@ using UnityEngine;
 public class CombatController : MonoBehaviour {
 
   public GameObject enemy;
+  public GameObject fighter;
 
   public float autoAttackCurTime;
   public float autoAttackCooldown = 3.0f;
@@ -14,19 +15,21 @@ public class CombatController : MonoBehaviour {
   public float specialAttackCooldown;
   public bool canSpecialAttack;
 
-  void Start() {
-      
-  }
 
   void Update() {
     if(enemy != null && CanAutoAttack()) {
-      enemy.GetComponent<PlayerController>().TakeDamage();
+      enemy.GetComponent<PlayerController>().TakeDamage(
+        fighter.GetComponent<EnemyStats>().GetDamage()
+      );
     }
   }
 
   public void SetEnemy(GameObject _enemy) {
-    Debug.Log("seteo enemigo");
     enemy = _enemy;
+  }
+
+  public void SetMe(GameObject _fighter) {
+    fighter = _fighter;
   }
 
   private bool CanAutoAttack() {

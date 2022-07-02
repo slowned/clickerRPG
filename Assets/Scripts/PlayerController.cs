@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour {
     public bool fighting = false;
     private int damage = 5;
 
-    public float health, maxHealth;
+    public int health, maxHealth;
     public int level = 1;
     public int baseHealth = 20;
 
@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
     void Start() {
         health = baseHealth * level;
         maxHealth = health; 
+        healthBar.FullHp(maxHealth);
     }
 
     // cambiarlo a OnTriggerCollision
@@ -31,16 +32,22 @@ public class PlayerController : MonoBehaviour {
             fighting = true;
             enemy = other.gameObject;
             enemyStatsScript = enemy.GetComponent<EnemyStats>();
+            enemyStatsScript.GenerateAggro(gameObject);
             //enemyStatsScript = GameObject.FindWithTag("Enemy").GetComponent<EnemyStats>();
 
-            if (healthBar) {
-                healthBar.onTakeDamage(20);
-            }
+            /* if (healthBar) { */
+            /*     healthBar.onTakeDamage(20); */
+            /* } */
         }
     } 
 
-    public void TakeDamage() {
-        healthBar.onTakeDamage(20);
+    public void TakeDamage(int damage) {
+      health -= damage;
+      healthBar.OnTakeDamage(damage);
+      if (health < 1) {
+        GameManager gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        gameManager.GameOver();
+      }
     }
 
     public bool CanAutoAttack() {
@@ -57,8 +64,7 @@ public class PlayerController : MonoBehaviour {
         autoAttackCurTime += Time.deltaTime;
 
         if (enemy != null && CanAutoAttack()) {
-          int enemyHp = enemyStatsScript.GetDamage(damage);
-          // lo mate??
+          float enemyHp = enemyStatsScript.GetDamage(damage);
           if (enemyHp < 1) {
               enemy = null;
               fighting = false;

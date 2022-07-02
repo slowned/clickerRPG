@@ -3,34 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyStats : MonoBehaviour {
-    private HealthBarController healthBar;
-    public CombatController combatController;
 
-    public int health;
-    public int maxHealth;
-    public int level;
-    // public dmg
+  private HealthBarController healthBar;
+  public CombatController combatControllerScript;
 
-    public int GetDamage(int damage) {
-        health -= damage;
-        healthBar.onTakeDamage(damage);
-        if (health < 1) {
-            Destroy(gameObject);
-        }
-        return health;
-    }
-    
-    public void Initialize(int _level, int _health) {
-        level = _level;
-        maxHealth = health = _health;
-        healthBar = GameObject.FindWithTag("EnemyHealthBar").GetComponent<HealthBarController>();
-        healthBar.fullHp();
-        // dmg = _dmg * lvl 
-    }
+  private float baseHealth = 20;
+  private int baseDamage = 3;
 
-    public void GenerateAggro(GameObject _enemy) {
-      Debug.Log("e loquieto vo wa a matar");
-      combatController = gameObject.GetComponent<CombatController>();
-      combatController.SetEnemy(_enemy);
-    }
+  public float health;
+  public float maxHealth;
+  public int level;
+  public int damage;
+  public int defense;
+
+
+  public float GetDamage(int damage) {
+      health -= damage;
+      healthBar.OnTakeDamage(damage);
+      if (health < 1) {
+          SpawnManager spawnManger = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+          spawnManger.enemyKilled();
+          // Destroy(gameObject);
+      }
+      return health;
+  }
+  
+  public void SetStats(int _level) {
+      level = defense = _level;
+      maxHealth = health = baseHealth * _level;
+      damage = baseDamage * level + defense;
+
+      healthBar = GameObject.FindWithTag("EnemyHealthBar").GetComponent<HealthBarController>();
+      healthBar.FullHp(maxHealth);
+      // dmg = _dmg * lvl 
+  }
+
+  public void GenerateAggro(GameObject _enemy) {
+    combatControllerScript = gameObject.GetComponent<CombatController>();
+    combatControllerScript.SetEnemy(_enemy);
+    combatControllerScript.SetMe(gameObject);
+  }
+
+  public int GetDamage() {
+    return damage;
+  }
 }
