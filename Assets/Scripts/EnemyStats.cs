@@ -16,26 +16,30 @@ public class EnemyStats : MonoBehaviour {
   public int damage;
   public int defense;
 
+  public int experience;
+
 
   public float GetDamage(int damage) {
-      health -= damage;
-      healthBar.OnTakeDamage(damage);
-      if (health < 1) {
-          SpawnManager spawnManger = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
-          spawnManger.enemyKilled();
-          // Destroy(gameObject);
-      }
-      return health;
+    health -= damage;
+    healthBar.OnTakeDamage(damage);
+    if (health < 1) {
+      PlayerController player = GameObject.Find("Player").GetComponent<PlayerController>();
+      player.GiveExperience(experience);
+      SpawnManager spawnManger = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+      spawnManger.EnemyKilled();
+    }
+    return health;
   }
   
   public void SetStats(int _level) {
-      level = defense = _level;
-      maxHealth = health = baseHealth * _level;
-      damage = baseDamage * level + defense;
+    level = defense = _level;
+    maxHealth = health = baseHealth * _level;
+    damage = baseDamage * level + defense;
 
-      healthBar = GameObject.FindWithTag("EnemyHealthBar").GetComponent<HealthBarController>();
-      healthBar.FullHp(maxHealth);
-      // dmg = _dmg * lvl 
+    healthBar = GameObject.FindWithTag("EnemyHealthBar").GetComponent<HealthBarController>();
+    healthBar.FullHp(maxHealth);
+
+    experience = level * 10;
   }
 
   public void GenerateAggro(GameObject _enemy) {

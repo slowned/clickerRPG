@@ -6,7 +6,8 @@ using TMPro;
 public class SpawnManager : MonoBehaviour {
   public GameObject enemyPrefab;
   public GameObject enemy;
-  private Vector3 spawnPos = new Vector3(18, -6.5f, 0);
+  //private Vector3 spawnPos = new Vector3(18, -6.5f, 0);
+  private Vector3 spawnPos = new Vector3(18, -4.3f, -1);
   private Vector3 offSetSpawnPos = new Vector3(10, 0, 0);
   private PlayerController playerControllerScript;
 
@@ -22,11 +23,11 @@ public class SpawnManager : MonoBehaviour {
   private GameManager gameManager;
 
   void Start() {
+    gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     WaveSpawnLevel();
     InvokeRepeating("SpawnEnemy", 1, 8);
     playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
 
-    gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
   }
 
   // IEnumerator SpawnEnemy() { while(gameManager.isGameActive) }
@@ -35,9 +36,9 @@ public class SpawnManager : MonoBehaviour {
       enemy = Instantiate(enemyPrefab, spawnPos, enemyPrefab.transform.rotation);
       EnemyStats InstanceStats = enemy.GetComponent<EnemyStats>();
       if (IsBossWave() && enemiesToKill == 1) {
+        //TODO: subir todos los stats exp
         enemy.transform.localScale = bossScale;
         waveToBoss = 1;
-        //Transform scale = enemy.GetComponent<Transform>();
       }
       InstanceStats.SetStats(waveLevel);
     }
@@ -51,19 +52,19 @@ public class SpawnManager : MonoBehaviour {
     if (waveToBoss != 0) {
       return false;
     }
+    Debug.Log("ES BOSS WAVE");
     return true;
   }
 
   private void WaveSpawnLevel() {
     /* sube 1 lvl y setea la cantidad de enemigos en la wave */
     waveLevel += 1;
-    // Definir si es la wave hay un boss osea 4 chobis y un boss
-    //  o el boss esta solo en la wave.
     enemiesToSpawn = EnemiesToSpawn();
     enemiesToKill = enemiesToSpawn;
+    gameManager.UpdateWaveLevel(waveLevel);
   }
 
-  public void enemyKilled() {
+  public void EnemyKilled() {
     enemiesToKill -= 1;
     gameManager.UpdateScore();
     Destroy(enemy);

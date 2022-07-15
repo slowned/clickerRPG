@@ -11,6 +11,7 @@ using TMPro; // using for ProUGUI
 public class GameManager : MonoBehaviour {
   public int score;
   public TextMeshProUGUI scoreText;
+  public TextMeshProUGUI waveLevelText;
 
   public bool isGameActive;
   public TextMeshProUGUI gameOverText;
@@ -19,11 +20,6 @@ public class GameManager : MonoBehaviour {
 
   void Start() {
     isGameActive = true;
-  }
-
-  public void UpdateScore() {
-    score += 1;
-    scoreText.text = "Kills: " + score;
   }
 
   public void GameOver() {
@@ -36,4 +32,14 @@ public class GameManager : MonoBehaviour {
     // nombre de la scena tring
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
   }
+
+  public void UpdateScore() {
+    score += 1;
+    scoreText.text = "Kills: " + score;
+  }
+
+  public void UpdateWaveLevel(int _level) {
+    waveLevelText.text = "Wave: " + _level;
+  }
+
 }

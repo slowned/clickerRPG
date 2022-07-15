@@ -8,8 +8,8 @@ using TMPro; // using for ProUGUI
 
 public class HealthBarController : MonoBehaviour {
     public Image healthBar;
-    private float health;
-    private float maxHealth;
+    public float health;
+    public float maxHealth;
 
     public TextMeshProUGUI healthText;
 
@@ -29,11 +29,17 @@ public class HealthBarController : MonoBehaviour {
         UpdateText();
     }
 
-    private void RestoreHp(float amount) {
+    public void RestoreHp(float amount) {
       health += amount;
+      healthBar.fillAmount += amount / 100;
+      UpdateText();
     }
 
     private void UpdateText() {
       healthText.text = "HP: " + health;
+    }
+
+    public void SetMaxHealth(float _maxHealth) {
+      maxHealth = _maxHealth;
     }
 }

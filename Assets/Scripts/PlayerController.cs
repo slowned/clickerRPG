@@ -6,11 +6,11 @@ public class PlayerController : MonoBehaviour {
     private EnemyStats enemyStatsScript;
     public GameObject enemy;
     public bool fighting = false;
+    private int baseDamage = 5;
     private int damage = 5;
 
     public int health, maxHealth;
-    public int level = 1;
-    public int baseHealth = 20;
+    public int baseHealth = 200;
 
     public HealthBarController healthBar;
 
@@ -19,32 +19,92 @@ public class PlayerController : MonoBehaviour {
     public float autoAttackCurTime;
     public bool canAutoAttack;
 
+    // LeveUpController
+    public int level = 1;
+    public int experience = 0;
+    public int experienceToNextLevel;
+
     void Start() {
-        health = baseHealth * level;
-        maxHealth = health; 
-        healthBar.FullHp(maxHealth);
+      experienceToNextLevel = GetExperienceToNextlevel();
+      health = baseHealth * level;
+      maxHealth = health; 
+      healthBar.FullHp(maxHealth);
     }
 
-    // cambiarlo a OnTriggerCollision
-    private void OnCollisionEnter(Collision other) {
-        // empieza animacion de pegar
-        if (other.gameObject.CompareTag("Enemy")) {
-            fighting = true;
-            enemy = other.gameObject;
-            enemyStatsScript = enemy.GetComponent<EnemyStats>();
-            enemyStatsScript.GenerateAggro(gameObject);
-            //enemyStatsScript = GameObject.FindWithTag("Enemy").GetComponent<EnemyStats>();
+    void Update() {
+      // AUTO ATTACK
+      autoAttackCurTime += Time.deltaTime;
 
-            /* if (healthBar) { */
-            /*     healthBar.onTakeDamage(20); */
-            /* } */
+      if (enemy != null && CanAutoAttack()) {
+        float enemyHp = enemyStatsScript.GetDamage(damage);
+        if (enemyHp < 1) {
+          enemy = null;
+          fighting = false;
         }
+      }
+    }
+
+    public void LevelUp() {
+      Debug.Log("SUBI D NIVEL");
+      level += 1;
+      experience = 0;
+      experienceToNextLevel = GetExperienceToNextlevel();
+      // ver bien la formula
+      damage = baseDamage + level;
+
+      maxHealth += 10 * level;
+      health += maxHealth * 5 / 100;
+
+      healthBar.SetMaxHealth(maxHealth);
+      healthBar.RestoreHp(maxHealth * 5 / 100);
+  }
+
+  public void GiveExperience(int _exp) {
+    experience += _exp;
+    if (experience >= experienceToNextLevel) {
+      LevelUp();
+    }
+  }
+
+  private int GetExperienceToNextlevel() {
+    // cambiarloa formula matematica
+    return  level * 100;
+  }
+
+  private void OnCollisionEnter2D(Collision2D other) {
+    if (other.gameObject.CompareTag("Enemy")) {
+      fighting = true;
+      enemy = other.gameObject;
+      enemyStatsScript = enemy.GetComponent<EnemyStats>();
+      enemyStatsScript.GenerateAggro(gameObject);
+      //enemyStatsScript = GameObject.FindWithTag("Enemy").GetComponent<EnemyStats>();
+
+      /* if (healthBar) { */
+        /*     healthBar.onTakeDamage(20); */
+        /* } */
+      }
+  }
+
+  private void OnCollisionEnter(Collision other) {
+    // empieza animacion de pegar
+    if (other.gameObject.CompareTag("Enemy")) {
+      fighting = true;
+      enemy = other.gameObject;
+      enemyStatsScript = enemy.GetComponent<EnemyStats>();
+      enemyStatsScript.GenerateAggro(gameObject);
+      //enemyStatsScript = GameObject.FindWithTag("Enemy").GetComponent<EnemyStats>();
+
+      /* if (healthBar) { */
+        /*     healthBar.onTakeDamage(20); */
+        /* } */
+      }
     } 
 
     public void TakeDamage(int damage) {
       health -= damage;
       healthBar.OnTakeDamage(damage);
       if (health < 1) {
+        Destroy(gameObject);
         GameManager gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         gameManager.GameOver();
       }
@@ -59,16 +119,4 @@ public class PlayerController : MonoBehaviour {
       }
     }
 
-    void Update() {
-        // AUTO ATTACK
-        autoAttackCurTime += Time.deltaTime;
-
-        if (enemy != null && CanAutoAttack()) {
-          float enemyHp = enemyStatsScript.GetDamage(damage);
-          if (enemyHp < 1) {
-              enemy = null;
-              fighting = false;
-          }
-        }
-    }
 }
