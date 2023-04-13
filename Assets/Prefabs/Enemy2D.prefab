@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5237963951384073980}
   - component: {fileID: 5237963951384073983}
-  - component: {fileID: 5237963951384073982}
   - component: {fileID: 5237963951384073977}
   - component: {fileID: 5237963951384073976}
+  - component: {fileID: 524812069673763840}
   - component: {fileID: 5237963951384073979}
   - component: {fileID: 5237963951384073978}
+  - component: {fileID: -7862568686199919847}
   m_Layer: 0
   m_Name: Enemy2D
   m_TagString: Enemy
@@ -29,14 +30,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5237963951384073957}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 5, y: -4.3, z: -1}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &5237963951384073983
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -89,18 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5237963951384073982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5237963951384073957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49d083f0640d88941821b3454d3b445b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5237963951384073977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatControllerScript: {fileID: 0}
+  animator: {fileID: -7862568686199919847}
   health: 0
   maxHealth: 0
   level: 0
@@ -134,12 +124,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 0}
   fighter: {fileID: 0}
+  animator: {fileID: -7862568686199919847}
   autoAttackCurTime: 0
   autoAttackCooldown: 3
   canAutoAttack: 0
   specialAttackCurTime: 0
   specialAttackCooldown: 0
   canSpecialAttack: 0
+--- !u!114 &524812069673763840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5237963951384073957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83eab212774e21241b4516272b5b0e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &5237963951384073979
 Rigidbody2D:
   serializedVersion: 4
@@ -187,3 +190,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4752515, y: 0.83424056}
   m_EdgeRadius: 0
+--- !u!95 &-7862568686199919847
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5237963951384073957}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 47bb70de7f9f81b4890fa28f7177f108, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

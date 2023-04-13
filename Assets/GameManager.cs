@@ -26,11 +26,18 @@ public class GameManager : MonoBehaviour {
     isGameActive = false;
     gameOverText.gameObject.SetActive(true);
     restartButton.gameObject.SetActive(true);
+    Invoke("PauseGame", 0.5f);
+  }
+
+  public void PauseGame() {
+
+    Time.timeScale = 0f;
   }
 
   public void RestarGame() {
     // nombre de la scena tring
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    Time.timeScale = 1f;
   }
 
   public void UpdateScore() {
