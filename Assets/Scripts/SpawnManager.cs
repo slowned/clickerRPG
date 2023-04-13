@@ -21,14 +21,17 @@ public class SpawnManager : MonoBehaviour {
   public Vector3 bossScale = new Vector3(4.0f, 4.0f, 4.0f);
 
   private GameManager gameManager;
+  
 
   void Start() {
     gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     WaveSpawnLevel();
     InvokeRepeating("SpawnEnemy", 1, 8);
     playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+    
 
-  }
+
+    }
 
   // IEnumerator SpawnEnemy() { while(gameManager.isGameActive) }
   void SpawnEnemy() {
@@ -66,8 +69,8 @@ public class SpawnManager : MonoBehaviour {
 
   public void EnemyKilled() {
     enemiesToKill -= 1;
-    gameManager.UpdateScore();
-    Destroy(enemy);
+    gameManager.UpdateScore();    
+    Destroy(enemy, 5);
     if (enemiesToKill < 1) {
       WaveSpawnLevel();
       waveToBoss -= 1;

@@ -6,6 +6,7 @@ public class CombatController : MonoBehaviour {
 
   public GameObject enemy;
   public GameObject fighter;
+  public Animator animator;
 
   public float autoAttackCurTime;
   public float autoAttackCooldown = 3.0f;
@@ -16,12 +17,14 @@ public class CombatController : MonoBehaviour {
   public bool canSpecialAttack;
 
 
+
   void Update() {
-    if(enemy != null && CanAutoAttack()) {
-      enemy.GetComponent<PlayerController>().TakeDamage(
-        fighter.GetComponent<EnemyStats>().GetDamage()
-      );
-    }
+    if(enemy != null && CanAutoAttack()) { 
+        
+        enemy.GetComponent<PlayerController>().TakeDamage(
+        fighter.GetComponent<EnemyStats>().GetDamage());        
+
+        }
   }
 
   public void SetEnemy(GameObject _enemy) {
@@ -33,9 +36,13 @@ public class CombatController : MonoBehaviour {
   }
 
   private bool CanAutoAttack() {
-
-    if(autoAttackCurTime >= autoAttackCooldown) {
+        EnemyStats es = gameObject.GetComponent<EnemyStats>();       
+      if (autoAttackCurTime >= autoAttackCooldown & es.isHiten == false) {
       autoAttackCurTime = 0;
+      if (enemy != null)
+      {
+         animator.SetTrigger("IsAttacking");
+      }
       return true;
     } else {
       autoAttackCurTime += Time.deltaTime;
