@@ -13,7 +13,7 @@ public class MoveLeft : MonoBehaviour {
     }
 
     void Update() {
-        if(playerControllerScript.fighting == false) {
+        if(playerControllerScript.isFighting == false) {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
         }
     }

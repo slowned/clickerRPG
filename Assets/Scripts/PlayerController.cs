@@ -7,44 +7,49 @@ public class PlayerController : MonoBehaviour {
 
   private EnemyStats enemyStatsScript;
   public GameObject enemy;
-  public bool fighting = false;
-  private int baseDamage = 5;
-  private int damage = 5;
-
-  public int health, maxHealth;
-  public int baseHealth = 200;
+  public bool isFighting = false;
+  // public bool isBeaten = false;
 
   public HealthBarController healthBar;
 
   // AUTO-ATTACK
   private float autoAttackCooldown = 3.0f;
   public float autoAttackCurTime;
-  public bool canAutoAttack;
 
   // LeveUpController
   public int level = 1;
   public int experience = 0;
   public int experienceToNextLevel;
 
+  // Stats
+  public int strength;
+  public int dexterity;
+  public int intelligence;
+
+  private float damage;
+  public int minDamage = 4;
+  public int maxDamage = 5;
+
+  public int health, maxHealth;
+  public int baseHealth = 200;
+
+  public int mana, maxMana;
+
+  public int magicFind;
+
+  // resistences (fire, cold, light, poison)
+
   void Start() {
     experienceToNextLevel = GetExperienceToNextlevel();
     health = baseHealth * level;
     maxHealth = health; 
     healthBar.FullHp(maxHealth);
-
   }
 
   void Update() {
-    // AUTO ATTACK
     autoAttackCurTime += Time.deltaTime;
-
     if (enemy != null && CanAutoAttack()) {
-      float enemyHp = enemyStatsScript.GetDamage(damage);
-      if (enemyHp < 1) {
-        enemy = null;
-        fighting = false;
-        animator.SetBool("IsFighting", false);
-      }
+      animator.SetBool("isAttacking", true);
     }
   }
 
@@ -52,8 +57,11 @@ public class PlayerController : MonoBehaviour {
     level += 1;
     experience = 0;
     experienceToNextLevel = GetExperienceToNextlevel();
-    // ver bien la formula
-    damage = baseDamage + level;
+
+    minDamage = maxDamage + 1;
+    maxDamage = minDamage + 5;
+
+    damage = (minDamage + maxDamage / 2);
 
     maxHealth += 10 * level;
     health += maxHealth * 5 / 100;
@@ -76,8 +84,8 @@ public class PlayerController : MonoBehaviour {
 
   private void OnCollisionEnter2D(Collision2D other) {
     if (other.gameObject.CompareTag("Enemy")) {
-      animator.SetBool("IsFighting", true);
-      fighting = true;
+      isFighting = true;
+      animator.SetBool("IsFighting", isFighting);
       enemy = other.gameObject;
       enemyStatsScript = enemy.GetComponent<EnemyStats>();
       enemyStatsScript.GenerateAggro(gameObject);
@@ -87,7 +95,10 @@ public class PlayerController : MonoBehaviour {
   public void TakeDamage(int damage) {
     health -= damage;
     healthBar.OnTakeDamage(damage);
-    animator.SetTrigger("IsBeaten");
+    /* isBeaten = true; */
+    /* animator.SetTrigger("IsBeaten"); */
+
+
     if (health < 1) {
       animator.SetBool("IsDead", true);
       // Destroy(gameObject);
@@ -100,14 +111,25 @@ public class PlayerController : MonoBehaviour {
   public bool CanAutoAttack() {
     if(autoAttackCurTime >= autoAttackCooldown) {
       autoAttackCurTime = 0;
-      if ( enemy != null ) { 
-        animator.SetTrigger("Attack1"); 
-      }
-      canAutoAttack = true;
       return true;
     } else {
-      canAutoAttack = false;
       return false;
     }
+  }
+
+  public void onFinishAttack() {
+    animator.SetBool("isAttacking", false);
+    int dmg = CalculateDamage();
+    float enemyHp = enemyStatsScript.TakeDamage(dmg);
+    if (enemyHp < 1) {
+      enemy = null;
+      isFighting = false;
+      animator.SetBool("IsFighting", isFighting);
+    }
+  }
+
+  public int CalculateDamage() {
+    int dmg = Random.Range(minDamage, maxDamage + 1);
+    return dmg;
   }
 }

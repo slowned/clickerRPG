@@ -18,7 +18,8 @@ public class SpawnManager : MonoBehaviour {
   public int enemiesToSpawn;
   public int enemiesToKill;
 
-  public Vector3 bossScale = new Vector3(4.0f, 4.0f, 4.0f);
+  private Vector3 bossScale = new Vector3(10.0f, 10.0f, 1.0f);
+  private Vector3 bossPosition = new Vector3(18.0f, -1.5f, -1);
 
   private GameManager gameManager;
 
@@ -32,12 +33,14 @@ public class SpawnManager : MonoBehaviour {
 
   // IEnumerator SpawnEnemy() { while(gameManager.isGameActive) }
   void SpawnEnemy() {
-    if (playerControllerScript.fighting == false) {
+    if (playerControllerScript.isFighting == false) {
       enemy = Instantiate(enemyPrefab, spawnPos, enemyPrefab.transform.rotation);
       EnemyStats InstanceStats = enemy.GetComponent<EnemyStats>();
       if (IsBossWave() && enemiesToKill == 1) {
         //TODO: subir todos los stats exp
+        Debug.Log("ESTE ES EL BOSS DE LA WAVE");
         enemy.transform.localScale = bossScale;
+        enemy.transform.position = bossPosition;
         waveToBoss = 1;
       }
       InstanceStats.SetStats(waveLevel);
@@ -52,7 +55,6 @@ public class SpawnManager : MonoBehaviour {
     if (waveToBoss != 0) {
       return false;
     }
-    Debug.Log("ES BOSS WAVE");
     return true;
   }
 

@@ -19,14 +19,17 @@ public class EnemyStats : MonoBehaviour {
   public int experience;
 
 
-  public float GetDamage(int damage) {
+  public float TakeDamage(int damage) {
     health -= damage;
     healthBar.OnTakeDamage(damage);
+
     if (health < 1) {
+
       PlayerController player = GameObject.Find("Player").GetComponent<PlayerController>();
       player.GiveExperience(experience);
       SpawnManager spawnManger = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
       spawnManger.EnemyKilled();
+
     }
     return health;
   }
@@ -50,5 +53,9 @@ public class EnemyStats : MonoBehaviour {
 
   public int GetDamage() {
     return damage;
+  }
+
+  public float getHealth() {
+    return health;
   }
 }
