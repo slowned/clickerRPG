@@ -27,7 +27,8 @@ public class EnemyStats : MonoBehaviour
     public bool isHiten = false;
 
 
-    public float GetDamage(int damage)
+
+    public float TakeDamage(int damage)
     {
 
 
@@ -52,11 +53,12 @@ public class EnemyStats : MonoBehaviour
 
         }
         return health;
+
     }
 
     public void DropItem()
     {
-        // Aquí va el código para matar al enemigo
+        // Aquï¿½ va el cï¿½digo para matar al enemigo
 
         // Determina si el enemigo deja caer un objeto
 
@@ -113,4 +115,9 @@ public class EnemyStats : MonoBehaviour
     {
         return damage;
     }
+
+    public float getHealth() {
+    return health;
+  }
+
 }
