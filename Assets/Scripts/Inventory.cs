@@ -5,9 +5,9 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
 
+    // TODO: esta logica pasar a GAME MANAGER 
+    // ahora esta en en canvas, este solo tiene q manejar la UI
     public List<Item> items = new List<Item>();
-    public static bool inventoryIsOpen = false;
-    public GameObject inventory;
 
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
@@ -25,16 +25,6 @@ public class Inventory : MonoBehaviour
       instance = this;
     }
     #endregion
-
-    void Update() {
-      if (Input.GetKeyDown(KeyCode.I)) {
-          if (inventoryIsOpen) {
-              CloseInventory();
-          } else {
-              OpenInventory();
-          }
-      }
-    }
 
     public bool Add (Item item) {
       if (!item.isDefaultItem) {
@@ -55,19 +45,5 @@ public class Inventory : MonoBehaviour
       if (onItemChangedCallback != null) {
         onItemChangedCallback.Invoke();
       }
-    }
-
-    public void OpenInventory() {
-        inventory.SetActive(true);
-        inventoryIsOpen = true;
-    }
-
-    public void CloseInventory() {
-        inventory.SetActive(false);
-        inventoryIsOpen = false;
-    }
-
-    void UpdateUI() {
-        Debug.Log("PICKITEANDO ITEMS");
     }
 }

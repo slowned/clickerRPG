@@ -620,6 +620,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2004009202}
     m_Modifications:
+    - target: {fileID: 6851059403427496349, guid: 693d449767d00b29a843f398cadb8352, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6851059405096107396, guid: 693d449767d00b29a843f398cadb8352, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5481,6 +5485,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 693d449767d00b29a843f398cadb8352, type: 3}
+--- !u!1001 &1170878573
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4875753822134084362, guid: c28534a4291202746812325c62f60585, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875753822134084362, guid: c28534a4291202746812325c62f60585, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.008
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875753822134084362, guid: c28534a4291202746812325c62f60585, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875753822134084362, guid: c28534a4291202746812325c62f60585, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875753822134084362, guid: c28534a4291202746812325c62f60585, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875753822134084362, guid: c28534a4291202746812325c62f60585, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875753822134084362, guid: c28534a4291202746812325c62f60585, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875753822134084362, guid: c28534a4291202746812325c62f60585, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875753822134084362, guid: c28534a4291202746812325c62f60585, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875753822134084362, guid: c28534a4291202746812325c62f60585, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875753822134084362, guid: c28534a4291202746812325c62f60585, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875753822134084368, guid: c28534a4291202746812325c62f60585, type: 3}
+      propertyPath: m_Name
+      value: TEST_ITEM_ESPADITA (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875753822134084369, guid: c28534a4291202746812325c62f60585, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: c6abe99d4d576233aa681acadc1f2696, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c28534a4291202746812325c62f60585, type: 3}
 --- !u!1 &1212719201
 GameObject:
   m_ObjectHideFlags: 0
@@ -5970,6 +6035,7 @@ GameObject:
   - component: {fileID: 1301369626}
   - component: {fileID: 1301369627}
   - component: {fileID: 1301369628}
+  - component: {fileID: 1301369629}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6106,8 +6172,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
-  inventory: {fileID: 0}
-  space: 2
+  space: 24
+--- !u!114 &1301369629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301369621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 370af10f5d76dbbc48de07829ed311be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsContainer: {fileID: 2004009202}
+  inventoryIU: {fileID: 476052024}
 --- !u!1 &1312302081
 GameObject:
   m_ObjectHideFlags: 0
@@ -7761,7 +7840,7 @@ MonoBehaviour:
   maxDamage: 5
   health: 0
   maxHealth: 0
-  baseHealth: 20
+  baseHealth: 80
   mana: 0
   maxMana: 0
   magicFind: 0
@@ -10607,6 +10686,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4875753822134084365, guid: c28534a4291202746812325c62f60585, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f9322915897c1abb9a05d9772601c19d, type: 3}
     - target: {fileID: 4875753822134084368, guid: c28534a4291202746812325c62f60585, type: 3}
       propertyPath: m_Name
       value: TEST_ITEM_ESPADITA
@@ -10620,26 +10703,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2004009202}
     m_Modifications:
-    - target: {fileID: 6851059402970997165, guid: 693d449767d00b29a843f398cadb8352, type: 3}
-      propertyPath: m_Interactable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6851059403427496349, guid: 693d449767d00b29a843f398cadb8352, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6851059404110902816, guid: 693d449767d00b29a843f398cadb8352, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6851059404110902818, guid: 693d449767d00b29a843f398cadb8352, type: 3}
-      propertyPath: m_Interactable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6851059404110902822, guid: 693d449767d00b29a843f398cadb8352, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6851059405096107396, guid: 693d449767d00b29a843f398cadb8352, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
