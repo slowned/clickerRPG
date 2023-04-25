@@ -16,7 +16,7 @@ public class MoveRight : MonoBehaviour
 
     void Update()
     {
-        if (playerControllerScript.fighting == false)
+        if (playerControllerScript.isFighting == false)
         {
             transform.Translate(Vector3.right * Time.deltaTime * speed);
         }

@@ -27,6 +27,7 @@ public class Inventory : MonoBehaviour
     #endregion
 
     public bool Add (Item item) {
+        Debug.Log("Entro a la funcion add");
       if (!item.isDefaultItem) {
         if (items.Count >= space) {
           Debug.Log("Not enough space en el inventario.");
